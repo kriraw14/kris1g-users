@@ -55,7 +55,8 @@ class RegistrationController extends Controller
 
         Session::flash('message', 'Thanks for signing up! Please check your email for confirmation.');
 
-        return Redirect::to('register');
+//        return Redirect::to('register');
+        return Redirect::to('login');
     }
     public function confirm($confirmation_code)
     {

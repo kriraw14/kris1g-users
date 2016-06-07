@@ -103,13 +103,20 @@
                             <label for="active_user" class="col-md-4 control-label">Active User</label>
 
                             <div class="col-md-6">
-                                <input id="active_check" type="checkbox" checked="checked" class="form-control" name="active_check">
+                                {{--<input type="checkbox" class="form-control" value="do" name="active_check" @if(Input::old('active_check')=="do" checked @endif)>--}}
                                 @if ($errors->has('active_check'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('active_check') }}</strong>
                                     </span>
                                 @endif
                             </div>
+                        </div>
+
+                        <div class='form-group'>
+                            @foreach ($roles as $role) //$role variable gets its data from the db
+                            {{ Form::label('roles', $role->display_name) }}
+                            {{ Form::checkbox('roles[]', $role->id) }}
+                            @endforeach
                         </div>
 
 

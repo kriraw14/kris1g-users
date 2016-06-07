@@ -11,10 +11,33 @@
 |
 */
 
+
+Route::group(['middleware' => 'web'], function () {
+    Route::get('/', function () {
+        return view('index');
+    })->name('main');
+
+    Route::get('/admin', [
+        'uses' => 'AppController@getAdminPage',
+        'as' => 'admin',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
+    ]);
+
+    Route::post('/admin/assign-roles', [
+        'uses' => 'AppController@postAdminAssignRoles',
+        'as' => 'admin.assign',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
+    ]);
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
-//
+//Admin
+
 //Route::get('register', 'Auth\AuthController@showRegistrationForm');
 //Route::post('register', 'Auth\AuthController@register');
 Route::get('/', 'HomeController@index');
