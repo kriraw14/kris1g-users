@@ -1,20 +1,14 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\User;
 use App\Role;
 use Illuminate\Http\Request;
-
 class AppController extends Controller
 {
     public function getIndex()
     {
         return view('index');
-    }
-    
-    public function getAuthorPage()
-    {
-        return view('author');
+//        return "app controller";
     }
 
     public function getAdminPage()
@@ -22,7 +16,7 @@ class AppController extends Controller
         $users = User::all();
         return view('admin', ['users' => $users]);
     }
-    
+
     public function postAdminAssignRoles(Request $request)
     {
         $user = User::where('email', $request['email'])->first();

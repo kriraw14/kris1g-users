@@ -41,6 +41,6 @@ class LoginController extends Controller
             return Redirect::to('login');
         }
 
-        return Redirect::to('home');
+        return Redirect::to('index');
     }
 }

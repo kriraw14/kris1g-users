@@ -72,5 +72,38 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+    //user register
+    public function getSignUpPage()
+    {
+        return view('auth.register');
+    }
+    public function getSignInPage()
+    {
+        return view('auth.login');
+    }
+    public function postSignUp(Request $request)
+    {
+        $user = new User();
+        $user->name = $request['name'];
+        $user->lastname = $request['lastname'];
+        $user->email = $request['email'];
+        $user->password = $request['password'];
+        $user->save();
+        $user->roles()->attach(Role::where('name', 'User')->first());
+        Auth::login($user);
+        return redirect()->route('main');
+    }
+    public function postSignIn(Request $request)
+    {
+        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
+            return redirect()->route('main');
+        }
+        return redirect()->back();
+    }
+    public function getLogout()
+    {
+        Auth::logout();
+        return redirect()->route('index');
+    }
 
 }

@@ -10,7 +10,8 @@
                     @if (Session::has('message'))
                         <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</p>
                     @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                        {{--action="{{ url('/register') }}"--}}
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -82,43 +83,6 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('select_group') ? ' has-error' : '' }}">
-                            <label for="selected_group" class="col-md-4 control-label">Select Group</label>
-
-                            <div class="col-md-6">
-                                <select id="selected_group" class="form-control">
-                                    <option id="user" value="user">User</option>
-                                    <option id="admin" value="admin">Admin</option>
-                                </select>
-                                @if ($errors->has('selected_group'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('selected_group') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('active_user') ? ' has-error' : '' }}">
-                            <label for="active_user" class="col-md-4 control-label">Active User</label>
-
-                            <div class="col-md-6">
-                                {{--<input type="checkbox" class="form-control" value="do" name="active_check" @if(Input::old('active_check')=="do" checked @endif)>--}}
-                                @if ($errors->has('active_check'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('active_check') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class='form-group'>
-                            @foreach ($roles as $role) //$role variable gets its data from the db
-                            {{ Form::label('roles', $role->display_name) }}
-                            {{ Form::checkbox('roles[]', $role->id) }}
-                            @endforeach
-                        </div>
-
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
